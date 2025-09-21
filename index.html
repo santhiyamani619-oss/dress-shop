@@ -1,201 +1,266 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>Portfolio</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #84a6e9;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FamilyWear — Dress Shop</title>
+  <meta name="description" content="FamilyWear - Dresses and outfits for the whole family" /> 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --accent:#c84b31;
+      --muted:#6b6f76;
+      --card:#fff;
+      --bg:#f6f6f8;
+    }
+    *{box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;background:var(--bg);margin:0;color:#222}
+    header{background:#fff;padding:18px 24px;position:sticky;top:0;z-index:40;box-shadow:0 1px 8px rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo img{width:46px;height:46px;border-radius:8px;}
+    nav ul{display:flex;gap:12px;list-style:none;padding:0;margin:0}
+    nav a{color:var(--muted);text-decoration:none;font-weight:600;cursor:pointer}
 
-        header {
-            background-color: #941919;
-            color: #fff;
-            text-align: center;
-            padding: 2rem 0;
-            position: relative; /* Add this */
-        }
+    /* Sidebar */
+    .menu-toggle{cursor:pointer;font-size:26px;background:none;border:none;color:var(--accent)}
+    .sidebar{position:fixed;top:0;left:-220px;width:200px;height:100%;background:#fff;box-shadow:2px 0 8px rgba(0,0,0,0.1);padding:20px;z-index:100;transition:0.3s ease;}
+    .sidebar.open{left:0}
+    .sidebar h3{margin-top:0}
+    .sidebar ul{list-style:disc;padding-left:20px;margin:0;}
+    .sidebar li{margin:10px 0}
+    .sidebar a{text-decoration:none;color:var(--accent);font-weight:600;cursor:pointer}
 
-        .header-content h1 {
-            font-size: 2.5rem;
-        }
+    main{margin-left:0;padding:20px}
 
-        /* Add styles for the round profile picture */
-        .profile-picture {
-            width: 100px; /* Adjust the size as needed */
-            height: 100px;
-            border-radius: 75%; /* Create a circular shape */
-            object-fit: cover; /* To ensure the image fills the circular area */
-            position: absolute; /* Add this */
-            top: 75px; /* Adjust top position as needed */
-            left: 75px; /* Adjust left position as needed */
-        }
+    /* Search bar */
+    .search-box{margin:20px 0;display:flex;justify-content:center}
+    .search-box input{width:100%;max-width:400px;padding:10px 14px;border-radius:8px;border:1px solid #ccc;font-size:15px}
 
-        nav {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-        }
+    .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:18px}
+    .product{background:var(--card);padding:12px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.05);overflow:hidden;position:relative}
+    .product img{width:100%;height:200px;object-fit:cover;border-radius:8px}
+    .p-info{padding:8px 0}
+    .p-title{font-weight:700;margin:0}
+    .p-meta{color:var(--muted);font-size:13px;margin:6px 0}
+    .price-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .price{font-weight:800;color:var(--accent)}
+    .order{padding:8px 10px;border-radius:10px;border:0;background:var(--accent);color:#fff;font-weight:700;cursor:pointer}
 
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-        }
+    .like-btn{position:absolute;top:10px;right:10px;background:#fff;border:none;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.2)}
+    .like-btn.liked{color:red}
 
-        nav ul li {
-            display: inline;
-            margin: 0 20px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: #fff;
-        }
-
-        .section-content {
-            background-color: #fff;
-            padding: 2rem;
-            margin: 1rem;
-            border-radius: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: justify;
-        }
-
-        .download-button {
-            background-color: #333;
-            color: #fff;
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            border-radius: 20px;
-            display: inline-block;
-            margin-top: 10px;
-            align-self: center;
-        }
-
-        .download-button:hover {
-            background-color: #555;
-        }
-
-        footer {
-            text-align: center;
-            padding: 1rem 0;
-            background-color: #333;
-            color: #fff;
-        }
-
-        ul {
-            list-style-type: disc;
-            padding-left: 20px;
-        }
-    </style>
+    footer{padding:28px 20px;color:var(--muted);font-size:14px;margin-left:0}
+  </style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <!-- Add your profile picture here -->
-            <img src="passport photo.jpg" alt="Your Profile Picture" class="profile-picture">
-            <h1>Pranesh S</h1>
-            <p>Am Mechanical Engineer</p>
-        </div>
-    </header>
+  <div class="sidebar" id="sidebar">
+    <h3>Menu</h3>
+    <ul>
+      <li><a onclick="filterCategory('Kids')">Kids</a></li>
+      <li><a onclick="filterCategory('Women')">Women</a></li>
+      <li><a onclick="filterCategory('Men')">Men</a></li>
+      <li><a onclick="goToSection('about')">About Us</a></li>
+      <li><a onclick="goToSection('contact')">Contact</a></li>
+      <li><a onclick="showAll()">Show All</a></li>
+      <li><a onclick="showFavorites()">Favorites ❤️</a></li>
+      <li><a onclick="showOrders()">My Orders 🛒</a></li> <!-- NEW -->
+    </ul>
+  </div>
 
+  <header>
+    <div class="brand">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <div class="logo"><img src="https://cdn-icons-png.flaticon.com/512/892/892458.png" alt="shop logo"></div>
+      <div>
+        <div style="font-weight:700">FamilyWear</div>
+        <div style="font-size:12px;color:var(--muted)">Dresses for everyone</div>
+      </div>
+    </div>
     <nav>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#resume">Resume</a></li>
-           
-        </ul>
+      <ul>
+        <li><a href="#collections">Collections</a></li>
+        <li><a onclick="showFavorites()">Favorites ❤️</a></li>
+      </ul>
     </nav>
+  </header>
 
-    <section id="about">
-        <div class="section-content">
-            <h2>About Me</h2>
-            <p>I'm a <b>web development</b> expert who is passionate about creating dynamic and user-friendly websites. 
-                I'm driven by the desire to craft high-performance web applications that enhance user experience and provide
-                 seamless digital solutions. With over 7 years of experience in the field, I'm dedicated to staying up to date 
-                 with the latest trends and innovations in the 
-                 web development landscape. I'm also committed to helping others learn more about web technologies, 
-                 best practices, and how to build secure and scalable websites.</p>
+  <main>
+    <section id="collections">
+      <h2 id="sectionTitle">Featured</h2>
 
-        </div>
+      <!-- Search box -->
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search dresses..." oninput="searchProducts(this.value)">
+      </div>
+
+      <div class="products" id="productGrid"></div>
     </section>
 
-    <section id="education">
-        <div class="section-content">
-            <h2>Education</h2>
-            <p>Deemed University  - Mech</p>
-            
-            
-        </div>
+    <section id="about" style="margin-top:26px">
+      <h3>About Us</h3>
+      <p style="color:var(--muted)">We design comfortable, everyday outfits for families. Quality fabrics and easy returns.</p>
     </section>
 
-    <section id="skills">
-        <div class="section-content">
-            <h2>Skills</h2>
-            <ul>
-                <li>React</li>
-                <li>Mern</li>
-                <li>Cloud Computing</li>
-                <li>Python</li>
-                <li>Spring</li>
-                <li>ML & AI</li>
-                <li>java</li>
-                <li>c++</li>
-                <li>Java script</li>
-            </ul>
-        </div>
+    <section id="contact" style="margin-top:26px">
+      <h3>Contact</h3>
+      <p style="color:var(--muted)">Phone: +91 98765 43210<br>Email: orders@familywear.example</p>
     </section>
+  </main>
 
-    <section id="projects">
-        <div class="section-content">
-            <h2>Projects</h2>
-            <ul>
-                <li><a href="#">E Cart website</a></li>
-                <li><a href="#">Cloud Security IBM</a></li>
-                <li><a href="#">IBM chatbot</a></li>
-                <li><a href="#">College Portal</a></li> 
-                <!-- Add more project links here -->
-            </ul>
-        </div>
-    </section>
+  <footer>
+    © <span id="yr"></span> FamilyWear — All rights reserved
+  </footer>
 
-    <section id="resume">
-    
-        <div class="section-content">
-            <center>
-            <h2>Resume</h2>
-            <a href="file.pdf" target="_blank" class="download-button">Download CV</a>
-        </center>
-        </div>
-        
-    </section>
+  <script>
+    const products = [
+      {id:1,title:'Women Floral Anarkali',category:'Women',price:1499,desc:'Comfort cotton, available S/M/L',img:'https://images.unsplash.com/photo-1520975921193-2b0d0b5a6a8f?q=80&w=800&auto=format&fit=crop'},
+      {id:2,title:'Women Designer Saree',category:'Women',price:2499,desc:'Silk saree with embroidery',img:'https://images.unsplash.com/photo-1593032457860-bbe0f6e9eab2?q=80&w=800&auto=format&fit=crop'},
+      {id:3,title:'Women Party Gown',category:'Women',price:2999,desc:'Net fabric with shimmer',img:'https://images.unsplash.com/photo-1612336307429-43d25f70f6a6?q=80&w=800&auto=format&fit=crop'},
+      {id:4,title:'Men Kurta Set',category:'Men',price:1299,desc:'Light linen kurta, multiple colors',img:'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=800&auto=format&fit=crop'},
+      {id:5,title:'Men Casual Shirt',category:'Men',price:899,desc:'Cotton slim fit shirt',img:'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=800&auto=format&fit=crop'},
+      {id:6,title:'Kids Denim Jacket',category:'Kids',price:1599,desc:'Classic blue denim',img:'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=800&auto=format&fit=crop'},
+    ];
 
-    <footer>
-        <p>&copy; 2025 Pranesh S</p>
-    </footer>
+    let favorites = [];
+    let myOrders = []; // store orders
 
-    <script>
-        // Smooth scrolling to section when clicking on navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
+    const grid = document.getElementById('productGrid');
+    const sectionTitle = document.getElementById('sectionTitle');
+    const yr = document.getElementById('yr'); yr.textContent = new Date().getFullYear();
 
-                const targetId = this.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
+    function renderProducts(list){
+      grid.innerHTML = '';
+      if(list.length === 0){
+        grid.innerHTML = '<p style="color:var(--muted)">No products found</p>';
+        return;
+      }
+      list.forEach(p=>{
+        const isFav = favorites.includes(p.id);
+        const div = document.createElement('div'); div.className='product';
+        div.innerHTML = `
+          <button class="like-btn ${isFav ? 'liked':''}" onclick="toggleFavorite(${p.id}, this)">❤</button>
+          <img src="${p.img}" alt="${p.title}" />
+          <div class="p-info">
+            <div class="p-title">${p.title}</div>
+            <div class="p-meta">${p.desc}</div>
+            <div class="price-row">
+              <div class="price">₹ ${numberWithCommas(p.price)}</div>
+            </div>
+            <div style="margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:8px">
+              <select id="size-${p.id}" style="flex:1;padding:6px;border-radius:8px;border:1px solid #ccc">
+                <option value="">Select Size</option>
+                <option>S</option>
+                <option>M</option>
+                <option>L</option>
+                <option>XL</option>
+              </select>
+              <button class="order" onclick='openOrder(${p.id})'>Order</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(div);
+      });
+    }
 
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    </script>
+    function filterCategory(cat){
+      sectionTitle.textContent = cat + " Collection";
+      const list = products.filter(p=>p.category.toLowerCase()===cat.toLowerCase());
+      renderProducts(list);
+      toggleSidebar(); 
+      document.getElementById('collections').scrollIntoView({behavior:'smooth'});
+    }
+
+    function searchProducts(query){
+      sectionTitle.textContent = "Search Results";
+      const q = query.toLowerCase();
+      const list = products.filter(p => 
+        p.title.toLowerCase().includes(q) || 
+        p.desc.toLowerCase().includes(q) || 
+        p.category.toLowerCase().includes(q)
+      );
+      renderProducts(list);
+    }
+
+    function showAll(){
+      sectionTitle.textContent = "All Collections";
+      renderProducts(products);
+      toggleSidebar();
+      document.getElementById('collections').scrollIntoView({behavior:'smooth'});
+    }
+
+    function showFavorites(){
+      sectionTitle.textContent = "My Favorites ❤️";
+      const list = products.filter(p => favorites.includes(p.id));
+      renderProducts(list);
+      document.getElementById('collections').scrollIntoView({behavior:'smooth'});
+    }
+
+    function showOrders(){
+      sectionTitle.textContent = "My Orders 🛒";
+      if(myOrders.length === 0){
+        grid.innerHTML = '<p style="color:var(--muted)">No orders placed yet.</p>';
+        return;
+      }
+      grid.innerHTML = '';
+      myOrders.forEach(o=>{
+        const div = document.createElement('div'); 
+        div.className='product';
+        div.innerHTML = `
+          <div class="p-info">
+            <div class="p-title">${o.product}</div>
+            <div class="p-meta">Size: ${o.size} | Ordered by: ${o.name}</div>
+            <div class="price-row">
+              <div class="price">₹ ${numberWithCommas(o.price)}</div>
+            </div>
+            <div style="font-size:13px;color:var(--muted);margin-top:6px">
+              Phone: ${o.phone}
+            </div>
+          </div>
+        `;
+        grid.appendChild(div);
+      });
+      toggleSidebar();
+      document.getElementById('collections').scrollIntoView({behavior:'smooth'});
+    }
+
+    function numberWithCommas(x){return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");}
+
+    function openOrder(id){
+      const p = products.find(x=>x.id===id);
+      if(!p) return; 
+
+      const size = document.getElementById('size-'+id).value;
+      if(!size) return alert('Please select a size before ordering.');
+
+      const name = prompt('Enter your name to place order for: "' + p.title + '" (Size: ' + size + ')');
+      if(!name) return alert('Order cancelled');
+      const phone = prompt('Enter phone number (for confirmation)');
+      if(!phone) return alert('Order cancelled');
+
+      // Save order
+      myOrders.push({product:p.title, price:p.price, size, name, phone});
+
+      alert('Thanks, ' + name + '!\nWe received order for "' + p.title + '" (Size: ' + size + ', ₹' + p.price + ').\nWe will contact you at ' + phone + ' to confirm.');
+    }
+
+    function toggleFavorite(id, btn){
+      if(favorites.includes(id)){
+        favorites = favorites.filter(x=>x!==id);
+        btn.classList.remove('liked');
+      } else {
+        favorites.push(id);
+        btn.classList.add('liked');
+      }
+    }
+
+    function toggleSidebar(){
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    // initial load
+    renderProducts(products);
+  </script>
 </body>
 </html>
